@@ -35,7 +35,7 @@ class MenuPage extends StatelessWidget {
               color: Colors.white,
               child: const Center(
                   child: Text(
-                'Asierta con las Tablas de Multiplicar',
+                'Acierta con las Tablas de Multiplicar',
                 style: TextStyle(fontSize: 22),
               )),
             ),
