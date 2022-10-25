@@ -17,16 +17,21 @@ class MyApp extends StatelessWidget {
     
     return MultiProvider(
       providers:[
+        
+        //Proveedores de mi aplicacion para el manejo de estado.
         ChangeNotifierProvider(create: (_) => ValidarProvider()),
         ChangeNotifierProvider(create: (_) => Puntos())
       ],
       child: MaterialApp(
-        title: 'Material App',
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Tablas de Multiplicar'),
+        debugShowCheckedModeBanner: false,
+        title: 'Tablas de Multiplicar',
+        home: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text('Tablas de Multiplicar'),
+            ),
+            body: const MenuPage(),
           ),
-          body: const MenuPage(),
         ),
       ),
     );

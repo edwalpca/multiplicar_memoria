@@ -7,13 +7,13 @@ import 'package:tsw_multiplicacion/provider/provider_multiiplicar.dart';
 import 'package:tsw_multiplicacion/provider/provider_puntos.dart';
 import 'package:tsw_multiplicacion/widgets/alert_dialog.dart';
 import 'package:tsw_multiplicacion/widgets/custom_botones.dart';
+import 'package:tsw_multiplicacion/widgets/custom_text_field.dart';
 import 'package:tsw_multiplicacion/widgets/tablero_teclado.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('====================> Build');
     final providerOperacion =
         Provider.of<ValidarProvider>(context, listen: true);
 
@@ -32,36 +32,39 @@ class MenuPage extends StatelessWidget {
           children: [
             Container(
               height: 55,
-              color: Colors.amberAccent,
-              child: const Center(child: Text('Instrucciones')),
+              color: Colors.white,
+              child: const Center(
+                  child: Text(
+                'Asierta con las Tablas de Multiplicar',
+                style: TextStyle(fontSize: 22),
+              )),
             ),
             const TableroMenu(),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
-                
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                               Text(
-                '${providerOperacion.numero_1} x ${providerOperacion.numero_2} = ',
-                style: const TextStyle(fontSize: 50),
-              ), 
-
-               Expanded(
-                 child: _CustomTextField(
-                  valueText: valueText, 
-                  providerOperacion: providerOperacion, 
-                  providerPuntos: providerPuntos),
-               ),
-
+                  Text(
+                    '${providerOperacion.numero_1} x ${providerOperacion.numero_2} = ',
+                    style: const TextStyle(fontSize: 50),
+                  ),
+                  Expanded(
+                    // TextFieldPersonalizado para que el usuario
+                    // Escriba el valor de la Multiplicacion.
+                    child: CustomTextField(
+                        valueText: valueText,
+                        providerOperacion: providerOperacion,
+                        providerPuntos: providerPuntos),
+                  ),
                 ],
               ),
-            ),   
+            ),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             Column(
               children: [
@@ -69,22 +72,20 @@ class MenuPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   //color: const Color.fromARGB(255, 11, 119, 173),
                   width: double.infinity,
-                  height: 45,
-                  child: ListView.builder(
-                    itemCount: providerPuntos.puntos,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (providerPuntos.puntos > 0) {
-                        return const Icon(
-                          Icons.check_circle,
-                          size: 35,
-                          color: Colors.green,
-                        );
-                      }else{
-                        return  const Text('Inicia');
-                      }
-                    },
-                  ),
+                  height: 55,
+                  child: (providerPuntos.puntos > 0)
+                      ? ListView.builder(
+                          itemCount: providerPuntos.puntos,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return const Icon(
+                              Icons.check_circle,
+                              size: 35,
+                              color: Colors.green,
+                            );
+                          },
+                        )
+                      : const Text('Selecciona una tabla de Multiplicacion para iniciar'),
                 ),
                 //Bloque de Incorrectas.
                 //
@@ -92,96 +93,25 @@ class MenuPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   //color: const Color.fromARGB(255, 11, 119, 173),
                   width: double.infinity,
-                  height: 45,
-                  child: ListView.builder(
+                  height: 55,
+                  child: (providerPuntos.incorrectas > 0 )?
+                  ListView.builder(
                     itemCount: providerPuntos.incorrectas,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      if (providerPuntos.puntos > 0) {
                         return const Icon(
                           Icons.dangerous_rounded,
                           size: 35,
                           color: Colors.red,
                         );
-                      }else{
-                        return  const Text('Inicia');
-                      }
                     },
-                  ),
-                )                
+                  )
+                  :const Text('Bien Hecho no tienes respuestas incorrectas.'),
+                )
               ],
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _CustomTextField extends StatelessWidget {
-  const _CustomTextField({
-    Key? key,
-    required this.valueText,
-    required this.providerOperacion,
-    required this.providerPuntos,
-  }) : super(key: key);
-
-  final String valueText;
-  final ValidarProvider providerOperacion;
-  final Puntos providerPuntos;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.yellow,
-      padding: const EdgeInsets.all(8),
-      child: TextField(
-        controller: TextEditingController(text: valueText),
-        decoration: const InputDecoration(
-            hintText: '',
-            fillColor: Colors.blueGrey,
-            filled: true,
-            border: OutlineInputBorder()),
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        style:
-            const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        onSubmitted: (value) {
-          if (value != '') {
-            providerOperacion.respuestaUsuario = int.parse(value);
-            int resultado = providerOperacion.validarMultiplicacion();
-            if (resultado == 1) {
-              // displayDialogAndroid(
-              //   context,
-              //   Icons.check,
-              //   Colors.green,
-              //   'Super Bien',
-              // );
-
-              providerPuntos.sumaPuntos();
-            } else {
-              // displayDialogAndroid(
-              //   context,
-              //   Icons.close,
-              //   Colors.redAccent,
-              //   'Upss Intentalo de Nuevo',
-              // );
-              providerPuntos.sumaIncorrectas();
-            }
-            //print(providerOperacion.resOperacion);
-            providerOperacion.respuestaUsuario = 0;
-
-            //
-            
-          var numero   = Random().nextInt(10);
-          var intValue = Random().nextInt(10);
-          //providerOperacion.numero1 = numero;
-          //providerOperacion.numero2 = intValue;
-          providerOperacion.asignarNumeros(numero,intValue);            
-
-
-          }
-        },
       ),
     );
   }
