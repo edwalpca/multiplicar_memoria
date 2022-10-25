@@ -1,4 +1,4 @@
-# tsw_multiplicacion
+# App llamada MultiplicarMemoria para practicar las tablas de multiplicar
 
 Un proyecto desarrollado en Flutter 3.3.0
 
