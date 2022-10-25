@@ -4,16 +4,15 @@ Un proyecto desarrollado en Flutter 3.3.0
 
 ## Caracteristicas del Proyecto
 
--[√] Flutter (Channel stable, 3.3.0, on Microsoft Windows [Version 10.0.19044.2130locale en-US)
-Checking Android licenses is taking an unexpectedly long time...[√] Android toolchain - develop for Android devices (Android SDK version 30.0.3)
--[√] Chrome - develop for the web
--[√] Visual Studio - develop for Windows (Visual Studio Professional 2022 17.1.0)
--[√] Android Studio (version 2020.3)
--[√] Android Studio (version 2021.2)
--[√] VS Code, 64-bit edition (version 1.72.2)
--[√] VS Code (version 1.71.0-insider)
--[√] Connected device (4 available)
--[√] HTTP Host Availability
+- [√] Flutter (Channel stable, 3.3.0, on Microsoft Windows [Version 10.0.19044.2130locale en-US) Checking Android licenses is taking an unexpectedly long time...[√] Android toolchain - develop for Android devices (Android SDK version 30.0.3)
+- [√] Chrome - develop for the web
+- [√] Visual Studio - develop for Windows (Visual Studio Professional 2022 17.1.0)
+- [√] Android Studio (version 2020.3)
+- [√] Android Studio (version 2021.2)
+- [√] VS Code, 64-bit edition (version 1.72.2)
+- [√] VS Code (version 1.71.0-insider)
+- [√] Connected device (4 available)
+- [√] HTTP Host Availability
 
 ## Descripcion
 
